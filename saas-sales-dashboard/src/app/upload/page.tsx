@@ -297,20 +297,13 @@ export default function UploadPage() {
         return;
       }
 
-      setSuccessMessage(`Successfully imported ${validRows.length} rows to the database!`);
+      setSuccessMessage(`Successfully imported ${validRows.length} rows! Redirecting to dashboard...`);
       
-      // Reset Upload UI
       setTimeout(() => {
-        setStep(1);
-        setFileName('');
-        setCsvHeaders([]);
-        setCsvData([]);
-        setMappings({});
-        setValidRows([]);
-        setRowErrors([]);
-        setSuccessMessage(null);
-      }, 3000);
+        router.push('/dashboard');
+      }, 1500);
     } catch (err: any) {
+
       setErrorMessage(err.message || 'An error occurred while uploading.');
     } finally {
       setLoading(false);
