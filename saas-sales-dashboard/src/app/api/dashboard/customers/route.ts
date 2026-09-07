@@ -52,8 +52,11 @@ export async function GET(req: NextRequest) {
     const totalOrdersAll = customers.reduce((sum, c) => sum + c.total_orders, 0);
     const avg_purchases_year = customers.length > 0 ? Math.round((totalOrdersAll / customers.length) * 10) / 10 : 0;
 
-    const highValue = customers.filter((c) => c.total_spend >= 5000);
-    const churnRisk = customers.filter((c) => c.total_orders === 1);
+    const sortedBySpend = [...customers].sort((a, b) => b.total_spend - a.total_spend);
+    const halfMark = Math.ceil(sortedBySpend.length / 2);
+    const highValue = sortedBySpend.slice(0, halfMark);
+    const churnRisk = sortedBySpend.slice(halfMark);
+
 
     return NextResponse.json({
       avg_clv,
