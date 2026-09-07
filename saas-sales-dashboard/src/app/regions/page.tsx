@@ -123,11 +123,12 @@ export default function RegionsPage() {
         attributionControl: false
       }).setView([20.5937, 78.9629], 4.8);
 
-      // Dark Mode Tile Layer
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 20,
-        subdomains: 'abcd'
+      // OpenStreetMap Tile Layer (No API Key required)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        className: 'map-tiles-dark'
       }).addTo(map);
+
 
       // Add Zoom control at bottom right
       L.control.zoom({
