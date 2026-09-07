@@ -28,9 +28,12 @@ export async function GET(req: NextRequest) {
       total_sales: Math.round(total_sales * 100) / 100,
     })).sort((a, b) => b.total_sales - a.total_sales);
 
-    return NextResponse.json(result);
+    return NextResponse.json({
+      stats: result,
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || '',
+    });
   } catch (err: any) {
     console.error('Regional sales error:', err);
-    return NextResponse.json([]);
+    return NextResponse.json({ stats: [], googleMapsApiKey: '' });
   }
 }

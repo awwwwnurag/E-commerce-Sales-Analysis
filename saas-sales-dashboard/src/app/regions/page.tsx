@@ -67,9 +67,11 @@ export default function RegionsPage() {
         const res = await fetch(`/api/dashboard/regional-sales?${queryParams.toString()}`);
         if (res.ok) {
           const data = await res.json();
-          const stats = data.stats || [];
+          const stats = Array.isArray(data) ? data : (data.stats || []);
           setRegionalStats(stats);
           setGoogleMapsApiKey(data.googleMapsApiKey || '');
+
+
           
           const sum = stats.reduce((acc: number, item: RegionalSalesData) => acc + item.total_sales, 0);
           setTotalSalesSum(sum);
