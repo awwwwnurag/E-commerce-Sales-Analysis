@@ -4,6 +4,8 @@ import { connectDB } from '@/utils/mongodb';
 import { SalesUpload } from '@/models/SalesUpload';
 import { SalesRecord } from '@/models/SalesRecord';
 import { AuditLog } from '@/models/AuditLog';
+import { inMemoryStore } from '@/utils/inMemoryStore';
+import { fetchSalesRecords } from '@/utils/dashboardHelper';
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,10 +19,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid upload payload.' }, { status: 400 });
     }
 
+    const targetCompany = companyId || 'demo-company-id';
+    inMemoryStore.addUpload(targetCompany, filename, rows);
+    if (targetCompany !== 'demo-company-id') {
+      inMemoryStore.addUpload('demo-company-id', filename, rows);
+    }
+
     try {
       await connectDB();
 
-      // 1. Create upload job document
       const uploadJob = await SalesUpload.create({
         companyId,
         uploadedBy: userId,
@@ -29,15 +36,14 @@ export async function POST(req: NextRequest) {
         status: 'completed',
       });
 
-      // 2. Prepare sales records for bulk insert
       const recordsToInsert = rows.map((r) => ({
         companyId,
         uploadId: uploadJob._id,
-        date: new Date(r.date),
+        date: new Date(r.date || Date.now()),
         product: r.product,
-        quantity: Number(r.quantity),
-        revenue: Number(r.revenue),
-        cost: Number(r.cost),
+        quantity: Number(r.quantity || 1),
+        revenue: Number(r.revenue || 0),
+        cost: Number(r.cost || 0),
         customer: r.customer,
         region: r.region,
         customerDetails: r.customerDetails || null,
@@ -46,10 +52,8 @@ export async function POST(req: NextRequest) {
         channel: r.channel || 'N/A',
       }));
 
-      // 3. Bulk insert to MongoDB
       await SalesRecord.insertMany(recordsToInsert);
 
-      // 4. Create Audit Log entry
       await AuditLog.create({
         companyId,
         userId,
@@ -77,16 +81,7 @@ export async function GET(req: NextRequest) {
     if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { companyId } = session.user as any;
-    let records: any[] = [];
-    try {
-      await connectDB();
-      records = await SalesRecord.find({ companyId })
-        .sort({ date: -1 })
-        .limit(2000);
-    } catch (dbErr) {
-      console.warn('Get upload records DB warning (offline mode):', dbErr);
-    }
-
+    const records = await fetchSalesRecords(companyId || 'demo-company-id');
     return NextResponse.json(records);
   } catch (err: any) {
     console.error('API get records error:', err);

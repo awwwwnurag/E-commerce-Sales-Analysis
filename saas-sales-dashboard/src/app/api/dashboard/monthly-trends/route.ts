@@ -1,25 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import mongoose from 'mongoose';
 import { auth } from '@/app/api/auth/[...nextauth]/route';
-import { connectDB } from '@/utils/mongodb';
-import { SalesRecord } from '@/models/SalesRecord';
-
-function buildMatch(companyId: string, sp: URLSearchParams) {
-  const match: Record<string, any> = {
-    companyId: new mongoose.Types.ObjectId(companyId),
-  };
-  const start = sp.get('start_date'), end = sp.get('end_date');
-  if (start || end) {
-    match.date = {};
-    if (start) match.date.$gte = new Date(start);
-    if (end) match.date.$lte = new Date(end);
-  }
-  const product = sp.get('product');
-  const region = sp.get('region');
-  if (product) match.product = product;
-  if (region) match.region = region;
-  return match;
-}
+import { fetchSalesRecords } from '@/utils/dashboardHelper';
 
 export async function GET(req: NextRequest) {
   try {
@@ -27,56 +8,30 @@ export async function GET(req: NextRequest) {
     if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { companyId } = session.user as any;
-    let result: any[] = [];
+    const sp = req.nextUrl.searchParams;
 
-    try {
-      await connectDB();
-      const isObjectId = mongoose.Types.ObjectId.isValid(companyId);
-      const matchCompany = isObjectId ? new mongoose.Types.ObjectId(companyId) : companyId;
+    const records = await fetchSalesRecords(companyId || 'demo-company-id', {
+      startDate: sp.get('start_date'),
+      endDate: sp.get('end_date'),
+      product: sp.get('product'),
+      region: sp.get('region'),
+    });
 
-      const sp = req.nextUrl.searchParams;
-      const match: Record<string, any> = { companyId: matchCompany };
-      const start = sp.get('start_date'), end = sp.get('end_date');
-      if (start || end) {
-        match.date = {};
-        if (start) match.date.$gte = new Date(start);
-        if (end) match.date.$lte = new Date(end);
-      }
-      const product = sp.get('product');
-      const region = sp.get('region');
-      if (product && product !== 'All') match.product = product;
-      if (region && region !== 'All') match.region = region;
+    const monthMap: Record<string, number> = {};
+    records.forEach((r) => {
+      const d = new Date(r.date);
+      const monthStr = isNaN(d.getTime()) ? '2025-01' : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      monthMap[monthStr] = (monthMap[monthStr] || 0) + (r.revenue || 0);
+    });
 
-      result = await SalesRecord.aggregate([
-        { $match: match },
-        {
-          $group: {
-            _id: {
-              $dateToString: { format: '%Y-%m', date: '$date' },
-            },
-            total_sales: { $sum: '$revenue' },
-          },
-        },
-        { $sort: { _id: 1 } },
-        {
-          $project: {
-            _id: 0,
-            month: {
-              $dateToString: {
-                format: '%b %Y',
-                date: { $dateFromString: { dateString: { $concat: ['$_id', '-01'] } } },
-              },
-            },
-            rawMonth: '$_id',
-            total_sales: { $round: ['$total_sales', 2] },
-          },
-        },
-      ]);
-    } catch (dbErr) {
-      console.warn('Monthly trends DB query warning (serving sample data):', dbErr);
-    }
+    const result = Object.entries(monthMap)
+      .map(([month, total_sales]) => ({
+        month,
+        total_sales: Math.round(total_sales * 100) / 100,
+      }))
+      .sort((a, b) => a.month.localeCompare(b.month));
 
-    return NextResponse.json((result && result.length > 0) ? result : []);
+    return NextResponse.json(result);
   } catch (err: any) {
     console.error('Monthly trends error:', err);
     return NextResponse.json([]);

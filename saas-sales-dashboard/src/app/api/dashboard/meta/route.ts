@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import mongoose from 'mongoose';
 import { auth } from '@/app/api/auth/[...nextauth]/route';
-import { connectDB } from '@/utils/mongodb';
-import { SalesRecord } from '@/models/SalesRecord';
-import { Company } from '@/models/Company';
+import { fetchSalesRecords } from '@/utils/dashboardHelper';
 
 export async function GET(req: NextRequest) {
   try {
@@ -11,49 +8,25 @@ export async function GET(req: NextRequest) {
     if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { companyId } = session.user as any;
-    let products: string[] = [];
-    let regions: string[] = [];
-    let company: any = null;
+    const records = await fetchSalesRecords(companyId || 'demo-company-id');
 
-    try {
-      await connectDB();
-      const isObjectId = mongoose.Types.ObjectId.isValid(companyId);
-      const oid = isObjectId ? new mongoose.Types.ObjectId(companyId) : companyId;
+    const productsSet = new Set<string>();
+    const regionsSet = new Set<string>();
 
-      const [p, r, c] = await Promise.all([
-        SalesRecord.distinct('product', { companyId: oid }),
-        SalesRecord.distinct('region', { companyId: oid }),
-        isObjectId ? Company.findById(oid) : null,
-      ]);
+    records.forEach((r) => {
+      if (r.product) productsSet.add(r.product);
+      if (r.region) regionsSet.add(r.region);
+    });
 
-      products = (p || []).filter(Boolean).sort();
-      regions = (r || []).filter(Boolean).sort();
-      company = c;
-    } catch (dbErr) {
-      console.warn('Meta DB query warning (serving sample data):', dbErr);
-    }
-
-    const defaultProducts = [
-      'Haldiram Sweets - Gulab Jamun',
-      'Haldiram Namkeen - Bhujia Sev',
-      'Haldiram Ready-to-Eat - Dal Makhani',
-      'Haldiram Snacks - Soan Papdi',
-      'Haldiram Beverages - Thandai Syrup',
-    ];
-
-    const defaultRegions = [
-      'North America',
-      'Europe',
-      'Asia Pacific',
-      'Latin America',
-    ];
+    const products = Array.from(productsSet).sort();
+    const regions = Array.from(regionsSet).sort();
 
     return NextResponse.json({
       products,
       regions,
-      company: company || {
-        name: 'SalesIQ Workspace',
-        settings: { currency: 'INR', theme_color: '#6366f1' }
+      company: {
+        name: session.user.name ? `${session.user.name}'s Workspace` : 'SalesIQ Workspace',
+        settings: { currency: 'INR', theme_color: '#6366f1' },
       },
     });
   } catch (err: any) {
@@ -63,7 +36,7 @@ export async function GET(req: NextRequest) {
       regions: [],
       company: {
         name: 'SalesIQ Workspace',
-        settings: { currency: 'INR', theme_color: '#6366f1' }
+        settings: { currency: 'INR', theme_color: '#6366f1' },
       },
     });
   }
