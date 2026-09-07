@@ -42,7 +42,7 @@ export default function Navigation() {
 
   const loadInsights = async () => {
     try {
-      const res = await fetch('/api/dashboard/insights');
+      const res = await fetch(`/api/dashboard/insights?t=${Date.now()}`);
       if (res.ok) {
         const data = await res.json();
         if (data.insights) setInsights(data.insights);
@@ -51,6 +51,7 @@ export default function Navigation() {
       console.error('Error fetching insights:', err);
     }
   };
+
 
   useEffect(() => {
     if (isInsightsOpen) {
