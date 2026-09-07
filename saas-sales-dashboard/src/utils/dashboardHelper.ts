@@ -99,11 +99,8 @@ export async function fetchSalesRecords(
       memRecords = inMemoryStore.getRecords('demo-company-id');
     }
 
-    if (memRecords.length > 0) {
-      records = memRecords;
-    } else {
-      records = DEFAULT_SAMPLE_RECORDS;
-    }
+    records = memRecords;
+
 
     records = records.filter((r) => {
       if (filters?.product && filters.product !== 'All' && r.product !== filters.product) return false;
