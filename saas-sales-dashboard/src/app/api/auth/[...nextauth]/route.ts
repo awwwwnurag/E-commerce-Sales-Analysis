@@ -7,59 +7,69 @@ import { connectDB } from '@/utils/mongodb';
 import { User } from '@/models/User';
 import { Company } from '@/models/Company';
 
-const config: NextAuthConfig = {
-  providers: [
+const providers: any[] = [];
+
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  providers.push(
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    })
+  );
+}
 
-        try {
-          await connectDB();
-          const user = await User.findOne({ email: credentials.email });
-          if (user && user.passwordHash) {
-            const isValid = await bcrypt.compare(credentials.password as string, user.passwordHash);
-            if (isValid) {
-              const company = await Company.findById(user.companyId);
-              return {
-                id: user._id.toString(),
-                email: user.email,
-                name: user.name || user.email.split('@')[0],
-                image: user.image,
-                companyId: user.companyId.toString(),
-                role: user.role || 'admin',
-                plan: company?.plan || 'pro',
-              };
-            }
+providers.push(
+  CredentialsProvider({
+    name: 'credentials',
+    credentials: {
+      email: { label: 'Email', type: 'email' },
+      password: { label: 'Password', type: 'password' },
+    },
+    async authorize(credentials) {
+      if (!credentials?.email || !credentials?.password) return null;
+
+      try {
+        await connectDB();
+        const user = await User.findOne({ email: credentials.email });
+        if (user && user.passwordHash) {
+          const isValid = await bcrypt.compare(credentials.password as string, user.passwordHash);
+          if (isValid) {
+            const company = await Company.findById(user.companyId);
+            return {
+              id: user._id.toString(),
+              email: user.email,
+              name: user.name || user.email.split('@')[0],
+              image: user.image,
+              companyId: user.companyId.toString(),
+              role: user.role || 'admin',
+              plan: company?.plan || 'pro',
+            };
           }
-        } catch (err) {
-          console.warn('DB connection error during credentials auth, proceeding with fallback user:', err);
         }
+      } catch (err) {
+        console.warn('DB connection error during credentials auth, proceeding with fallback user:', err);
+      }
 
-        // Fallback demo account when DB is not reachable or user brand new
-        const emailStr = (credentials.email as string).toLowerCase();
-        return {
-          id: 'demo-user-id',
-          email: emailStr,
-          name: emailStr.split('@')[0],
-          companyId: 'demo-company-id',
-          role: 'admin',
-          plan: 'pro',
-        };
-      },
-    }),
-  ],
+      // Fallback demo account when DB is not reachable or user brand new
+      const emailStr = (credentials.email as string).toLowerCase();
+      return {
+        id: 'demo-user-id',
+        email: emailStr,
+        name: emailStr.split('@')[0],
+        companyId: 'demo-company-id',
+        role: 'admin',
+        plan: 'pro',
+      };
+    },
+  })
+);
+
+const config: NextAuthConfig = {
+  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || 'fmcg-sales-analytics-nextauth-secret-key-32-chars-minimum-length',
+  trustHost: true,
+  providers,
   callbacks: {
     async signIn({ user, account }) {
-      // Handle Google OAuth — create company + user on first sign-in if DB connected
       if (account?.provider === 'google') {
         try {
           await connectDB();
@@ -131,7 +141,6 @@ const config: NextAuthConfig = {
           }
         }
       }
-      // Ensure token properties are always set
       token.companyId = token.companyId || 'demo-company-id';
       token.role = token.role || 'admin';
       token.plan = token.plan || 'pro';
