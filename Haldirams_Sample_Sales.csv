@@ -1,0 +1,11 @@
+Item_Identifier,Item_Name,Item_Type,Item_MRP,Quantity_Sold,Item_Outlet_Sales,Outlet_Identifier,Outlet_Location_Type,Customer_Name,Customer_Details
+HAL001,Haldiram Bhujia Sev 400g,Snacks,120.00,45,5400.00,OUT_DELHI_01,Tier 1,Rajesh Sharma,rajesh.sharma@gmail.com
+HAL002,Haldiram Khatta Meetha 350g,Snacks,95.00,60,5700.00,OUT_MUMBAI_02,Tier 1,Priya Patel,priya.patel@gmail.com
+HAL003,Haldiram Gulab Jamun 1kg,Sweets,240.00,30,7200.00,OUT_KOLKATA_01,Tier 2,Anjali Gupta,anjali.gupta@gmail.com
+HAL004,Haldiram Soan Papdi 500g,Sweets,160.00,50,8000.00,OUT_DELHI_02,Tier 1,Vikram Singh,vikram.singh@gmail.com
+HAL005,Haldiram All in One Namkeen 400g,Snacks,130.00,75,9750.00,OUT_PUNE_01,Tier 2,Rohan Mehta,rohan.mehta@gmail.com
+HAL006,Haldiram Rasgulla 1kg,Sweets,230.00,25,5750.00,OUT_KOLKATA_02,Tier 2,Sneha Roy,sneha.roy@gmail.com
+HAL007,Haldiram Minute Khana Paneer Makhani,Ready to Eat,175.00,40,7000.00,OUT_BANGALORE_01,Tier 1,Karan Nair,karan.nair@gmail.com
+HAL008,Haldiram Moong Dal 200g,Snacks,65.00,100,6500.00,OUT_CHENNAI_01,Tier 2,Deepak Kumar,deepak.kumar@gmail.com
+HAL009,Haldiram Kaju Katli 250g,Premium Sweets,450.00,20,9000.00,OUT_DELHI_01,Tier 1,Meera Reddy,meera.reddy@gmail.com
+HAL010,Haldiram Aloo Bhujia 400g,Snacks,115.00,85,9775.00,OUT_AHMEDABAD_01,Tier 2,Sanjay Joshi,sanjay.joshi@gmail.com
