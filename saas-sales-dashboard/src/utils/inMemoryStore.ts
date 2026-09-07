@@ -60,9 +60,20 @@ export const inMemoryStore = {
     return memoryRecords.get(companyId) || [];
   },
 
-  getUploads(companyId: string): InStoreUpload[] {
-    return memoryUploads.get(companyId) || [];
+  getUploads(companyId: string) {
+    let uploads = memoryUploads.get(companyId) || [];
+    if (uploads.length === 0 && companyId !== 'demo-company-id') {
+      uploads = memoryUploads.get('demo-company-id') || [];
+    }
+    return uploads.map((u) => ({
+      _id: u.id,
+      filename: u.filename,
+      rowCount: u.rowCount,
+      uploadedAt: u.createdAt,
+      status: 'completed',
+    }));
   },
+
 
   deleteUpload(companyId: string, uploadId: string) {
     const records = memoryRecords.get(companyId) || [];

@@ -4,6 +4,8 @@ import { connectDB } from '@/utils/mongodb';
 import { SalesUpload } from '@/models/SalesUpload';
 import { SalesRecord } from '@/models/SalesRecord';
 import { AuditLog } from '@/models/AuditLog';
+import { inMemoryStore } from '@/utils/inMemoryStore';
+
 
 // DELETE: Cascade delete an upload tracking log and all associated sales records (Admin only)
 export async function DELETE(req: NextRequest) {
@@ -22,6 +24,8 @@ export async function DELETE(req: NextRequest) {
     if (!uploadId) {
       return NextResponse.json({ error: 'Upload ID is required.' }, { status: 400 });
     }
+
+    inMemoryStore.deleteUpload(companyId || 'demo-company-id', uploadId);
 
     try {
       await connectDB();
@@ -42,6 +46,7 @@ export async function DELETE(req: NextRequest) {
     } catch (dbErr) {
       console.warn('Upload cascade delete DB warning (offline mode):', dbErr);
     }
+
 
     return NextResponse.json({
       success: true,

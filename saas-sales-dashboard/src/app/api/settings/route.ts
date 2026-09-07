@@ -5,7 +5,9 @@ import { Company } from '@/models/Company';
 import { User } from '@/models/User';
 import { SalesUpload } from '@/models/SalesUpload';
 import { AuditLog } from '@/models/AuditLog';
+import { inMemoryStore } from '@/utils/inMemoryStore';
 import bcrypt from 'bcryptjs';
+
 
 // GET: Fetch user profile, company configuration, teammates list, and upload logs
 export async function GET(req: NextRequest) {
@@ -54,6 +56,10 @@ export async function GET(req: NextRequest) {
       { _id: 'team-2', name: 'Sarah Jenkins', email: 'sarah@workspace.com', role: 'analyst' },
       { _id: 'team-3', name: 'Alex Rivera', email: 'alex@workspace.com', role: 'viewer' },
     ];
+
+    if (!uploads || uploads.length === 0) {
+      uploads = inMemoryStore.getUploads(companyId || 'demo-company-id');
+    }
 
     return NextResponse.json({
       user: fallbackUser,
