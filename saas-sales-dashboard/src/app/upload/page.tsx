@@ -357,7 +357,7 @@ export default function UploadPage() {
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-slate-800 hover:border-indigo-500 bg-slate-900/50 hover:bg-slate-900 rounded-2xl p-12 text-center cursor-pointer transition flex flex-col items-center group"
+              className="border-2 border-dashed border-slate-800 hover:border-indigo-500 bg-slate-900/50 hover:bg-slate-900 rounded-2xl p-12 text-center cursor-pointer transition flex flex-col items-center group glow-card"
             >
               <input
                 type="file"
@@ -388,7 +388,7 @@ export default function UploadPage() {
 
         {/* STEP 2: COLUMN MAPPING */}
         {step === 2 && (
-          <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-8 max-w-4xl mx-auto">
+          <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-8 max-w-4xl mx-auto glow-card">
             <div className="flex items-center gap-2 mb-4 text-indigo-400 text-sm font-semibold">
               <FileSpreadsheet className="w-4 h-4" /> Mappings configuration
             </div>
@@ -436,7 +436,7 @@ export default function UploadPage() {
               </button>
               <button
                 onClick={validateData}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-5 py-2 text-sm font-medium flex items-center gap-2 transition"
+                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-5 py-2 text-sm font-medium flex items-center gap-2 transition glow-button"
               >
                 Validate Data <ArrowRight className="w-4 h-4" />
               </button>
@@ -447,7 +447,7 @@ export default function UploadPage() {
         {/* STEP 3: VALIDATION AND SAVE */}
         {step === 3 && (
           <div className="max-w-4xl mx-auto space-y-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 glow-card">
               <h2 className="text-xl font-bold text-white mb-2">Verify Row Validation Results</h2>
               <p className="text-sm text-slate-400 mb-6">
                 All records have been validated based on mapped columns. Check errors before sending data to database.
@@ -505,7 +505,7 @@ export default function UploadPage() {
               <button
                 onClick={handleSaveToDatabase}
                 disabled={loading || validRows.length === 0}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-6 py-2.5 text-sm font-semibold flex items-center gap-2 transition disabled:opacity-50"
+                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-6 py-2.5 text-sm font-semibold flex items-center gap-2 transition disabled:opacity-50 glow-button"
               >
                 {loading ? (
                   <>

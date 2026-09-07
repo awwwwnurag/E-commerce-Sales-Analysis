@@ -179,7 +179,7 @@ export default function DashboardPage() {
 
           {/* Slicers Filters Bar */}
           {!loading && !isEmptyState && (
-            <div className="flex flex-wrap items-center gap-4 bg-slate-900 border border-slate-800/80 p-3 rounded-2xl text-xs shadow-lg">
+            <div className="flex flex-wrap items-center gap-4 bg-slate-900 border border-slate-800/80 p-3 rounded-2xl text-xs shadow-lg glow-card">
               <div className="flex items-center gap-2">
                 <Calendar className="w-3.5 h-3.5 text-slate-400" />
                 <input
@@ -229,7 +229,7 @@ export default function DashboardPage() {
               <button
                 onClick={fetchDashboardData}
                 disabled={fetchingData}
-                className="bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg text-slate-400 hover:text-white transition disabled:opacity-50"
+                className="bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg text-slate-400 hover:text-white transition disabled:opacity-50 glow-button"
                 title="Refresh visuals"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${fetchingData ? 'animate-spin' : ''}`} />
@@ -315,7 +315,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
               {/* Monthly Sales Trends LineChart */}
-              <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-6 relative">
+              <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-6 relative glow-card">
                 {fetchingData && (
                   <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-10" />
                 )}
@@ -354,7 +354,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Regional Sales distribution BarChart */}
-              <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-6 relative">
+              <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-6 relative glow-card">
                 {fetchingData && (
                   <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-10" />
                 )}
@@ -392,7 +392,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Top Products Table */}
-            <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-6 relative">
+            <div className="bg-slate-900 border border-slate-800/80 rounded-2xl p-6 relative glow-card">
               {fetchingData && (
                 <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-10" />
               )}
@@ -412,7 +412,7 @@ export default function DashboardPage() {
                     </thead>
                     <tbody className="divide-y divide-slate-850 text-sm">
                       {topProducts.map((p, idx) => (
-                        <tr key={idx} className="hover:bg-slate-950/20 transition">
+                        <tr key={idx} className="glow-row transition cursor-pointer">
                           <td className="py-3.5 px-4 font-bold text-slate-500">{idx + 1}</td>
                           <td className="py-3.5 px-4 font-medium text-white">{p.product}</td>
                           <td className="py-3.5 px-4 text-right text-slate-300">{p.units_sold.toLocaleString()}</td>

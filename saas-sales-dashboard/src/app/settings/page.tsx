@@ -342,7 +342,7 @@ export default function SettingsPage() {
 
         {/* Tab 1: Profile Settings */}
         {activeTab === 'profile' && (
-          <div className="max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
+          <div className="max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6 glow-card">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Key className="w-5 h-5 text-indigo-400" /> Account Security Details
             </h2>
@@ -413,7 +413,7 @@ export default function SettingsPage() {
               <button
                 type="submit"
                 disabled={actionLoading}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-6 py-2.5 text-sm font-semibold flex items-center gap-2 transition"
+                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-6 py-2.5 text-sm font-semibold flex items-center gap-2 transition glow-button"
               >
                 {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 Save Changes
@@ -424,7 +424,7 @@ export default function SettingsPage() {
 
         {/* Tab 2: Workspace Settings (Admin Only) */}
         {activeTab === 'workspace' && isAdmin && (
-          <div className="max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
+          <div className="max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6 glow-card">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Building2 className="w-5 h-5 text-indigo-400" /> Workspace Settings
             </h2>
@@ -517,7 +517,7 @@ export default function SettingsPage() {
               <button
                 type="submit"
                 disabled={actionLoading}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-6 py-2.5 text-sm font-semibold flex items-center gap-2 transition"
+                className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-6 py-2.5 text-sm font-semibold flex items-center gap-2 transition glow-button"
               >
                 {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 Update Configurations
@@ -530,7 +530,7 @@ export default function SettingsPage() {
         {activeTab === 'teammates' && isAdmin && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Add Teammate Form */}
-            <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-2xl p-6 h-fit space-y-4">
+            <div className="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-2xl p-6 h-fit space-y-4 glow-card">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <UserPlus className="w-5 h-5 text-indigo-400" /> Invite Member
               </h3>
@@ -588,7 +588,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Teammates List */}
-            <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 glow-card">
               <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
                 <Users className="w-5 h-5 text-indigo-400" /> Active Roster ({teammates.length})
               </h3>
@@ -627,7 +627,7 @@ export default function SettingsPage() {
 
         {/* Tab 4: Upload History & Deletion (Admin Only) */}
         {activeTab === 'data' && isAdmin && (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6 glow-card">
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -665,7 +665,7 @@ export default function SettingsPage() {
                   </thead>
                   <tbody className="divide-y divide-slate-850">
                     {uploads.map((log) => (
-                      <tr key={log._id} className="hover:bg-slate-950/20 text-xs transition">
+                      <tr key={log._id} className="glow-row text-xs transition">
                         <td className="py-3 px-4 font-semibold text-white">{log.filename}</td>
                         <td className="py-3 px-4 text-slate-400">
                           {new Date(log.uploadedAt).toLocaleDateString('en-IN', {
@@ -700,7 +700,7 @@ export default function SettingsPage() {
 
         {/* Tab 5: Audit Logs (Admin Only) */}
         {activeTab === 'logs' && isAdmin && (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6 animate-fadeIn">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6 animate-fadeIn glow-card">
             <div>
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
                 <History className="w-5 h-5 text-indigo-400" /> System Audit Logs
@@ -729,7 +729,7 @@ export default function SettingsPage() {
                   </thead>
                   <tbody className="divide-y divide-slate-850">
                     {auditLogs.map((log) => (
-                      <tr key={log._id} className="hover:bg-slate-950/20 text-xs transition">
+                      <tr key={log._id} className="glow-row text-xs transition">
                         <td className="py-3 px-4 text-slate-400">
                           {new Date(log.createdAt).toLocaleString('en-IN')}
                         </td>

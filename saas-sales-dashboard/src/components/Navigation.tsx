@@ -297,7 +297,7 @@ export default function Navigation() {
                 {insights.map((item, idx) => {
                   const IconComponent = item.icon === 'trending' ? TrendingUp : item.icon === 'shopping' ? ShoppingBag : AlertTriangle;
                   return (
-                    <div key={idx} className={`bg-[#141822] border border-slate-900 border-l-4 ${item.color || 'border-l-[#6344FF]'} p-4 rounded-r-xl space-y-2`}>
+                    <div key={idx} className={`bg-[#141822] border border-slate-900 border-l-4 ${item.color || 'border-l-[#6344FF]'} p-4 rounded-r-xl space-y-2 glow-card`}>
                       <div className="flex items-center gap-2 text-white font-bold font-figtree">
                         <IconComponent className="w-4 h-4 text-indigo-400" />
                         <span>{item.title}</span>
@@ -316,7 +316,7 @@ export default function Navigation() {
               <button 
                 onClick={handleGenerateInsights}
                 disabled={generatingInsights}
-                className="w-full bg-[#6344FF] hover:bg-[#4f35cf] disabled:bg-slate-800 text-white py-3 rounded-xl font-bold font-figtree transition-all shadow-[0_4px_20px_rgba(99,68,255,0.2)] flex items-center justify-center gap-2 hover:scale-[1.02]"
+                className="w-full bg-[#6344FF] hover:bg-[#4f35cf] disabled:bg-slate-800 text-white py-3 rounded-xl font-bold font-figtree transition-all shadow-[0_4px_20px_rgba(99,68,255,0.2)] flex items-center justify-center gap-2 glow-button"
               >
                 {generatingInsights ? (
                   <>

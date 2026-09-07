@@ -243,7 +243,7 @@ export default function ForecastingPage() {
         )}
 
         {(loadingData || hasData) && (
-          <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6">
+          <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6 glow-card">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
               <h2 className="text-base font-bold text-white font-figtree flex items-center gap-1.5">
@@ -259,7 +259,7 @@ export default function ForecastingPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* KPI 1 */}
-                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-purple-500">
+                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-purple-500 glow-card">
                   <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Projected Revenue ({projectedMonthLabel})</span>
                   {loadingData ? (
                     <div className="h-9 bg-slate-800 rounded animate-pulse w-2/3 my-1" />
@@ -273,7 +273,7 @@ export default function ForecastingPage() {
                 </div>
 
                 {/* KPI 2 */}
-                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-[#6344FF]">
+                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-[#6344FF] glow-card">
                   <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Model Fit Accuracy</span>
                   {loadingData ? (
                     <div className="h-9 bg-slate-800 rounded animate-pulse w-2/3 my-1" />
@@ -287,7 +287,7 @@ export default function ForecastingPage() {
               </div>
 
               {/* AI Model Architecture Summary */}
-              <div className="lg:col-span-1 bg-[#141822] border border-slate-900 rounded-xl p-5 space-y-3 text-xs flex flex-col justify-between">
+              <div className="lg:col-span-1 bg-[#141822] border border-slate-900 rounded-xl p-5 space-y-3 text-xs flex flex-col justify-between glow-card">
                 <div className="flex items-center gap-2 text-white font-bold font-figtree">
                   <Brain className="w-4 h-4 text-indigo-400" />
                   <span>Model Properties</span>
@@ -308,7 +308,7 @@ export default function ForecastingPage() {
             </div>
 
             {/* Forecast Trend Chart (Recharts) */}
-            <div className="h-80 w-full bg-[#090b11] border border-slate-900 p-4 rounded-xl relative">
+            <div className="h-80 w-full bg-[#090b11] border border-slate-900 p-4 rounded-xl relative glow-card">
               {loadingData ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-slate-950/20 backdrop-blur-[1px] rounded-xl z-20">
                   <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />

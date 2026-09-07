@@ -284,7 +284,7 @@ export default function RegionsPage() {
         </section>
 
         {/* Heatmap Layout Module (Screenshot 4) */}
-        <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl">
+        <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl glow-card">
           <div className="flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
             <h2 className="text-base font-bold text-white font-figtree">Interactive Geographic Heatmap</h2>
@@ -346,7 +346,7 @@ export default function RegionsPage() {
               const percentStr = getRegionPercentage(item.total_sales);
 
               return (
-                <div key={item.region} className={`bg-[#0e121a] border border-slate-900 p-4 rounded-xl space-y-3 transition flex flex-col justify-between ${borderAccent}`}>
+                <div key={item.region} className={`bg-[#0e121a] border border-slate-900 p-4 rounded-xl space-y-3 transition flex flex-col justify-between glow-card ${borderAccent}`}>
                   <div>
                     <div className="flex justify-between items-center">
                       <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{item.region} Zone</span>

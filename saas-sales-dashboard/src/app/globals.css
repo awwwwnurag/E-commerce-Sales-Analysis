@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #090b11;
+  --foreground: #f8fafc;
 }
 
 @theme inline {
@@ -10,13 +10,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -29,3 +22,67 @@ body {
   filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
 }
 
+/* Glassmorphism & Neon Glow System */
+.glow-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glow-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(99, 68, 255, 0.4);
+  box-shadow: 0 0 25px rgba(99, 68, 255, 0.25), 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.glow-card-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25), 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.glow-card-rose:hover {
+  border-color: rgba(244, 63, 94, 0.4);
+  box-shadow: 0 0 25px rgba(244, 63, 94, 0.25), 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.glow-card-amber:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.25), 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.glow-button {
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.glow-button:hover {
+  box-shadow: 0 0 20px rgba(99, 68, 255, 0.5), 0 0 40px rgba(99, 68, 255, 0.2);
+  transform: scale(1.02);
+}
+.glow-button:active {
+  transform: scale(0.98);
+}
+
+/* Table Row Glows */
+tr.glow-row {
+  transition: all 0.2s ease;
+}
+tr.glow-row:hover {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  box-shadow: inset 3px 0 0 0 #6344FF, 0 0 15px rgba(99, 68, 255, 0.1);
+}
+
+/* Custom Scrollbar Glow */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090b11;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6344FF;
+  box-shadow: 0 0 10px #6344FF;
+}

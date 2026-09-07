@@ -193,7 +193,7 @@ export default function ReportsPage() {
         {(loadingHistory || hasData) && (
           <>
             {/* Panel 1: Generate Custom Reports (Screenshot 2 top) */}
-            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6">
+            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6 glow-card">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#6344FF]" />
                 <h2 className="text-base font-bold text-white font-figtree">Generate Custom Reports</h2>
@@ -205,7 +205,7 @@ export default function ReportsPage() {
                 <button
                   onClick={handleExportPDF}
                   disabled={downloading !== null || loadingHistory}
-                  className="flex items-center justify-center gap-2 bg-[#6344FF] hover:bg-[#4f35cf] disabled:bg-slate-800 text-white font-bold py-4 rounded-xl text-xs font-figtree transition-all shadow-[0_4px_20px_rgba(99,68,255,0.2)] hover:scale-[1.01]"
+                  className="flex items-center justify-center gap-2 bg-[#6344FF] hover:bg-[#4f35cf] disabled:bg-slate-800 text-white font-bold py-4 rounded-xl text-xs font-figtree transition-all shadow-[0_4px_20px_rgba(99,68,255,0.2)] glow-button"
                 >
                   {downloading === 'pdf' ? (
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
@@ -219,7 +219,7 @@ export default function ReportsPage() {
                 <button
                   onClick={handleExportCSV}
                   disabled={downloading !== null || loadingHistory}
-                  className="flex items-center justify-center gap-2 bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-slate-800 text-white font-bold py-4 rounded-xl text-xs font-figtree transition-all shadow-[0_4px_20px_rgba(139,92,246,0.2)] hover:scale-[1.01]"
+                  className="flex items-center justify-center gap-2 bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:bg-slate-800 text-white font-bold py-4 rounded-xl text-xs font-figtree transition-all shadow-[0_4px_20px_rgba(139,92,246,0.2)] glow-button"
                 >
                   {downloading === 'csv' ? (
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
@@ -232,7 +232,7 @@ export default function ReportsPage() {
             </section>
 
             {/* Panel 2: Recent Automated Reports (Screenshot 2 bottom) */}
-            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6">
+            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6 glow-card">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
                 <h2 className="text-base font-bold text-white font-figtree">Recent Automated Reports</h2>
@@ -264,7 +264,7 @@ export default function ReportsPage() {
                       </tr>
                     ) : (
                       uploadLogs.map((log) => (
-                        <tr key={log._id} className="hover:bg-[#141822]/40 transition">
+                        <tr key={log._id} className="glow-row transition">
                           <td className="py-4 text-white font-semibold font-figtree">
                             Export Log - {log.filename}
                           </td>

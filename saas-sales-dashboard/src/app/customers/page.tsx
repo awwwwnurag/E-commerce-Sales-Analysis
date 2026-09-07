@@ -180,7 +180,7 @@ export default function CustomersPage() {
         {(loadingData || hasData) && (
           <>
             {/* Panel 1: Customer Lifetime Value (Screenshot 5 top) */}
-            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6">
+            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6 glow-card">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#6344FF]" />
                 <h2 className="text-base font-bold text-white font-figtree">Customer Lifetime Value (CLV)</h2>
@@ -188,7 +188,7 @@ export default function CustomersPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-figtree">
                 {/* Card 1 */}
-                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-[#6344FF]">
+                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-[#6344FF] glow-card">
                   <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold font-inter">Avg CLV</span>
                   {loadingData ? (
                     <div className="h-9 bg-slate-800 rounded animate-pulse w-2/3 my-1" />
@@ -199,7 +199,7 @@ export default function CustomersPage() {
                 </div>
 
                 {/* Card 2 */}
-                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-purple-500">
+                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-purple-500 glow-card">
                   <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold font-inter">Retention Rate</span>
                   {loadingData ? (
                     <div className="h-9 bg-slate-800 rounded animate-pulse w-2/3 my-1" />
@@ -210,7 +210,7 @@ export default function CustomersPage() {
                 </div>
 
                 {/* Card 3 */}
-                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-rose-500">
+                <div className="bg-[#141822] border border-slate-900 p-5 rounded-xl space-y-1 relative overflow-hidden border-b-2 border-b-rose-500 glow-card-rose">
                   <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold font-inter">Avg Purchases / Customer</span>
                   {loadingData ? (
                     <div className="h-9 bg-slate-800 rounded animate-pulse w-2/3 my-1" />
@@ -240,7 +240,7 @@ export default function CustomersPage() {
             </section>
 
             {/* Panel 2: Customer Cohorts (Screenshot 5 bottom) */}
-            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6">
+            <section className="bg-[#0e121a] border border-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-xl space-y-6 glow-card">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
                 <h2 className="text-base font-bold text-white font-figtree">Customer Cohorts</h2>
@@ -249,7 +249,7 @@ export default function CustomersPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Cohort 1 */}
-                <div className="bg-[#141822] border border-slate-900 p-6 rounded-xl space-y-3 relative overflow-hidden group hover:border-[#6344FF]/40 transition">
+                <div className="bg-[#141822] border border-slate-900 p-6 rounded-xl space-y-3 relative overflow-hidden group glow-card-amber transition">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 text-white font-bold font-figtree">
                       <Star className="w-4 h-4 text-amber-400 fill-current" />
@@ -277,7 +277,7 @@ export default function CustomersPage() {
                 </div>
 
                 {/* Cohort 2 */}
-                <div className="bg-[#141822] border border-slate-900 p-6 rounded-xl space-y-3 relative overflow-hidden group hover:border-rose-500/40 transition">
+                <div className="bg-[#141822] border border-slate-900 p-6 rounded-xl space-y-3 relative overflow-hidden group glow-card-rose transition">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 text-white font-bold font-figtree">
                       <AlertCircle className="w-4 h-4 text-rose-400" />
